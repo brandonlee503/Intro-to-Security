@@ -37,25 +37,32 @@ class BloomFilter(object):
                 return "no"
         return "maybe"
 
-def main():
-    print "main()"
-    inputList = open(sys.argv[4]).read().splitlines()
+def createBloomFilter(nHash, inputList, outputFile):
+    bloomFilter = BloomFilter(899545, nHash)
 
-    # Pop first element (number of passwords)
-    inputList.pop(0)
-    for i in inputList:
-        print i
-
-    bloomFilter3 = BloomFilter(899545, 3)
+    # Read in dictionary
     dictionary = open(sys.argv[2]).read().splitlines()
     for password in dictionary:
-        bloomFilter3.add(password)
-        # print password
+        bloomFilter.add(password)
 
-    print bloomFilter3.search("password")
+    # Search bloomFilter and write to output file
+    output = open(outputFile, 'w+')
+    for password in inputList:
+        print password
+        print bloomFilter.search(password)
+        output.write(bloomFilter.search(password) + '\n')
+
+def main():
+
+    # Read in input passwords and pop first element (number of passwords)
+    inputList = open(sys.argv[4]).read().splitlines()
+    inputList.pop(0)
+
+    # Create bloom filters of nHash 3 and 5
+    createBloomFilter(3, inputList, sys.argv[6])
+    createBloomFilter(5, inputList, sys.argv[7]
+
     print 'Number of arguments:', len(sys.argv), 'arguments.'
     print 'Argument List:', str(sys.argv)
-
-
 
 if __name__ == "__main__": main()
