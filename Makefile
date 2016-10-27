@@ -1,17 +1,7 @@
-CC = g++
+DICTIONARY = dictionary.txt
+INPUT      = sample_input.txt
+OUTPUT3    = output3.txt
+OUTPUT5    = output5.txt
 
-# compiler flags:
-#  -g    adds debugging information to the executable file
-#  -Wall turns on most, but not all, compiler warnings
-CFLAGS  = -g -Wall
-
-# the build target executable:
-TARGET = assignment1
-
-all: $(TARGET)
-
-$(TARGET): $(TARGET).cpp
-	$(CC) $(CFLAGS) -o $(TARGET) $(TARGET).cpp
-
-clean:
-	$(RM) $(TARGET)
+default:
+	python assignment1.py -d $(DICTIONARY) -i $(INPUT) -o $(OUTPUT3) $(OUTPUT5)
