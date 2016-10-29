@@ -25,3 +25,6 @@ Argument inputs can be set in `Makefile`
 
 3. What is the probability of False Positive in your Bloom Filter in each case? What is the probability of False Negative in your Bloom Filter?
   - The probability of false positives in a given Bloom Filter is the following equation: ![alt text] (https://wikimedia.org/api/rest_v1/media/math/render/svg/f2e6672519704bf66f07548db4ec356bbf43fdcc "BloomFilter FP Equation") Through some calculations, with 3 hashes, the probability is about [67%] (http://www.wolframalpha.com/input/?i=(1-e%5E((-3)(623517)%2F899545))%5E3). For 5 hashes, the probability is about [85%](http://www.wolframalpha.com/input/?i=(1-e%5E((-5)(623517)%2F899545))%5E5). False negatives are not a possibility in Bloom Filters.
+
+4. How can you reduce the rate of False Positives?
+ - To reduce the rate of false positives - as observed from the above equation and example, decrease the number of hashes.
