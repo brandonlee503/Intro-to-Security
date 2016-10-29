@@ -1,15 +1,19 @@
 # Assignment 1
 
+## Install
+
 Dependencies
  - Python 2.7
   - bitarray
   - mmh3
-
+  
 To install dependencies, run the following lines:
 ```
 sudo pip install bitarray
 sudo pip install mmh3
 ```
+
+## Execute
 
 To run, simply type `make`
 
