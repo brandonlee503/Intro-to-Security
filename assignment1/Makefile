@@ -5,3 +5,6 @@ OUTPUT5    = output5.txt
 
 default:
 	python assignment1.py -d $(DICTIONARY) -i $(INPUT) -o $(OUTPUT3) $(OUTPUT5)
+
+clean:
+	rm $(OUTPUT3) $(OUTPUT5)
