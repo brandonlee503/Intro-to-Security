@@ -7,6 +7,7 @@
 # http://blog.michaelschmatz.com/2016/04/11/how-to-write-a-bloom-filter-cpp/
 # http://billmill.org/bloomfilter-tutorial/
 # http://www.maxburstein.com/blog/creating-a-simple-bloom-filter/
+# http://softwareengineering.stackexchange.com/questions/49550/which-hashing-algorithm-is-best-for-uniqueness-and-speed
 # https://github.com/wc-duck/pymmh3
 
 from bitarray import bitarray
@@ -25,6 +26,7 @@ class BloomFilter(object):
         self.size = size
         self.nHash = nHash
 
+    # Add to bloomfilter mmh3 hashed with seed mod size
     def add(self, password):
         for seed in range(self.nHash):
             result = mmh3.hash(password, seed) % self.size
@@ -38,7 +40,7 @@ class BloomFilter(object):
         return "maybe"
 
 def createBloomFilter(nHash, inputList, outputFile):
-    bloomFilter = BloomFilter(899545, nHash)
+    bloomFilter = BloomFilter(BIT_ARRAY_SIZE, nHash)
 
     # Read in dictionary
     dictionary = open(sys.argv[2]).read().splitlines()
@@ -48,8 +50,6 @@ def createBloomFilter(nHash, inputList, outputFile):
     # Search bloomFilter and write to output file
     output = open(outputFile, 'w+')
     for password in inputList:
-        print password
-        print bloomFilter.search(password)
         output.write(bloomFilter.search(password) + '\n')
 
 def main():
@@ -60,9 +60,7 @@ def main():
 
     # Create bloom filters of nHash 3 and 5
     createBloomFilter(3, inputList, sys.argv[6])
-    createBloomFilter(5, inputList, sys.argv[7]
-
-    print 'Number of arguments:', len(sys.argv), 'arguments.'
-    print 'Argument List:', str(sys.argv)
+    createBloomFilter(5, inputList, sys.argv[7])
+    print "Done!"
 
 if __name__ == "__main__": main()
