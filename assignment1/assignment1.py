@@ -14,8 +14,8 @@ from bitarray import bitarray
 import mmh3
 import sys
 
-# https://www.wolframalpha.com/input/?i=-((623517ln+0.5)%2F+(ln2)+%5E2)
-BIT_ARRAY_SIZE  = 899545
+# https://www.wolframalpha.com/input/?i=-((623517ln+0.001)%2F+(ln2)+%5E2)
+BIT_ARRAY_SIZE  = 8964670
 DICTIONARY_SIZE = 623517
 
 class BloomFilter(object):
