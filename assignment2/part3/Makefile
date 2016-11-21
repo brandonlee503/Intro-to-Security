@@ -3,4 +3,4 @@ all:
 	./assignment2part3 sha1
 
 clean:
-	$(RM) assignment2part3
+	$(RM) assignment2part3 *.txt

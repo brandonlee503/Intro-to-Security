@@ -16,7 +16,7 @@ void rand_str(char *dest, size_t length) {
     *dest = '\0';
 }
 
-void weakCollisionResistance(int argc, char *argv[]) {
+void weakCollisionResistance(FILE *fWeak, int argc, char *argv[]) {
     EVP_MD_CTX *mdctx;
     const EVP_MD *md;
     unsigned char md_value[EVP_MAX_MD_SIZE];
@@ -68,6 +68,7 @@ void weakCollisionResistance(int argc, char *argv[]) {
         // Compare the first 3 bytes (24 bits)
         if (memcmp(md_value, first_md_value, 3) == 0) {
             printf("Collision found! Number of attempts: %i\n", counter);
+            fprintf(fWeak, "%d\n", counter);
             break;
         } else {
             counter++;
@@ -75,7 +76,7 @@ void weakCollisionResistance(int argc, char *argv[]) {
     }
 }
 
-void strongCollisionResistance(int argc, char *argv[]) {
+void strongCollisionResistance(FILE *fStrong, int argc, char *argv[]) {
     EVP_MD_CTX *mdctx;
     const EVP_MD *md;
     unsigned char md_value[EVP_MAX_MD_SIZE];
@@ -126,6 +127,7 @@ void strongCollisionResistance(int argc, char *argv[]) {
         // Compare the first 3 bytes (24 bits)
         if (memcmp(md_value, first_md_value, 3) == 0) {
             printf("Collision found! Number of attempts: %i\n", counter);
+            fprintf(fStrong, "%d\n", counter);
             break;
         } else {
             counter++;
@@ -135,10 +137,19 @@ void strongCollisionResistance(int argc, char *argv[]) {
 
 int main(int argc, char *argv[]) {
     int i;
+    FILE *fWeak = fopen("weakCollisionResistance.txt", "w");
+    FILE *fStrong = fopen("strongCollisionResistance.txt", "w");
+
     for (i = 0; i < 100; i++) {
-        weakCollisionResistance(argc, argv);
-        strongCollisionResistance(argc, argv);
+        weakCollisionResistance(fWeak, argc, argv);
     }
+
+    for (i = 0; i < 100; i++) {
+        strongCollisionResistance(fStrong, argc, argv);
+    }
+
+    fclose(fWeak);
+    fclose(fStrong);
 
     exit(0);
 }
